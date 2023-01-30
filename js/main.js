@@ -280,7 +280,7 @@ function agregarProducto(array){
 
 // function eliminarProducto (catalogo) {
 //     // Obtener el catálogo desde el local storage
-//     let catalogo = JSON.parse(localStorage.getItem("catalogo")) || [];
+//     let catalogo = JSON.parse(localStorage.getItem("catalogo")) || []
 
 //     // Filtrar el producto a eliminar
 //     catalogo = catalogo.filter(producto => producto.id !== id)
