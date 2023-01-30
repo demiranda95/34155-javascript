@@ -1,0 +1,18 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.logo {
+    max-width: 15rem;
+}
+
+.thumbnail {
+    max-width: 5rem;
+    max-height: 5rem;
+}
+
+.modal-dialog {
+    max-width: 80vw; 
+    }

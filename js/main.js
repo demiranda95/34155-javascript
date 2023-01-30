@@ -1,311 +1,336 @@
-let salirMenu = false
+//Captura de Nodos DOM
+let displayProductos = document.getElementById("displayProductos")
+let buscador = document.getElementById("buscador")
+let displayProductosBuscados = document.getElementById("displayProductosBuscados")
+let displayCategorias = document.getElementById("displayCategorias")
+let ordenSelect = document.getElementById("ordenSelect")
 
-// Solicitar nombre de alumno
-let nombreAlumno = prompt("Por favor introduce tu NOMBRE")
 
-// Function para saludar alumno
-function saludarAlumno(nombre){
-    alert(`¡Bienvenido ${nombre}!`)
-}
+//FUNCTIONS:
 
-// Ejecutar el saludo a alumno con valor ingresado
-saludarAlumno(nombreAlumno)
-
-// Clase para notas
-class Nota {
-    constructor(id, alumno, nota, materia){
+// Clase Constructora para productos
+class Producto {
+    constructor(id, producto, categoria, genero, precio, img){
         this.id = id,
-        this.alumno = alumno,
-        this.nota = nota,
-        this.materia = materia
+        this.producto = producto,
+        this.categoria = categoria,
+        this.genero = genero,
+        this.precio = precio,
+        this.img = img
     }
 }
+
+const producto1 = new Producto(1,"Polera 1","Poleras","Mujer", 900, "polera1.png")
+const producto2 = new Producto(2,"Polera 2","Poleras","Mujer", 1000, "polera2.png")
+const producto3 = new Producto(3,"Pantalon 1","Pantalones","Hombre", 2000, "pantalon1.png")
+const producto4 = new Producto(4,"Pantalon 2","Pantalones","Hombre", 1500, "pantalon2.png")
+const producto5 = new Producto(5,"Jockey 1","Gorros","Mujer", 3000, "jockey1.png")
+const producto6 = new Producto(6,"Jockey 2","Gorros","Hombre", 3100, "jockey2.png")
+const producto7 = new Producto(7,"Zapatillas 1","Calzado","Hombre", 10000, "zapatillas1.png")
+const producto8 = new Producto(8,"Zapatillas 2","Calzado","Mujer", 10000, "zapatillas2.png")
+
 
 // Array de notas vacio para iniciar
-const notas = []
-
-
-// Function para agrear notas
-function agregarNota(){
-    let notaIngresada = prompt("Ingrese Nota")
-    let materiaIngresada = prompt("Ingrese la materia")
-    //Nuevo objeto 
-    const registroNuevo = new Nota(notas.length+1, nombreAlumno, notaIngresada, materiaIngresada)
-    console.log(registroNuevo)
-    //Sumarlo al array de notas
-    notas.push(registroNuevo) 
-    console.log(notas)
+let catalogo = []
+if (localStorage.getItem("catalogo")){
+    catalogo = JSON.parse(localStorage.getItem("catalogo"))
+} else {
+    console.log("Estableciendo Stock de Vestuario")
+    catalogo.push(producto1,producto2,producto3,producto4,producto5,producto6,producto7,producto8)
+    localStorage.setItem("catalogo", JSON.stringify(catalogo))
 }
 
-// Function para ver registro de notas
-function verRegistro(array){
-    console.log("Tus Notas Registradas son:")
-    array.forEach((elem)=>{
-        console.log(elem.id, elem.alumno, elem.materia, elem.nota)
-    })
+//Mostrar categorias
+function obtenerCategorias(array) {
+    return array.map(item => item.category)
 }
 
-// Function para eliminar notas del registro
-function eliminarNota(array){
-    alert("A partir del registro ingrese el numero de la nota que desea eliminar")
-    for(let elem of array){
-        alert(`${elem.id} - Materia: ${elem.materia}, Nota: ${elem.nota}, Alumno: ${elem.alumno}`)
-    }
-    let idEliminar = parseInt(prompt("Ingrese el numero de nota a eliminar"))
-
-    // Map para que nos devuelva un array solo con id
-    let arrayID = array.map((elem) => elem.id)
-    console.log(arrayID)
-
-    // Le pasamos el parametro a indexOf para saber el indice donde se encuentra el parametro otorgado
-    let indice = arrayID.indexOf(idEliminar)
-
-    // Splice para indicar el indice y que nos permita eliminar el elemento
-    array.splice(indice, 1)
-    verRegistro(array)
-}
-
-// Function para ordenar notas del registro de Menor a Mayor
-function ordenarMenorMayor(array){
-    //Copia del array y posterior concatenacion
-    const menorMayor = [].concat(array)
-    //Ordenar de Menor a Mayor
-    menorMayor.sort((a,b) => a.nota - b.nota)
-    verRegistro(menorMayor)
-}
-
-// Function para ordenar notas del registro de Mayor a Menor
-function ordenarMayorMenor(array){
-    //Copia del array y posterior concatenacion
-    const mayorMenor = [].concat(array)
-    //Ordenar de Mayor a Menor
-    mayorMenor.sort((a,b) => b.nota - a.nota)
-    verRegistro(mayorMenor)
-}
-
-// Function para ordenar notas del registro Alfabeticamente según Materias
-function ordenarAlfabeticamente(array){
-    //Copia del array y posterior concatenacion
-    const ordenadoAlfabeticamente = [].concat(array)
-        //Ordenar Alfabeticamente tomando el value de Materia de los objetos
-        ordenadoAlfabeticamente.sort((a,b) => {
-            if(a.materia > b.materia) {
-            return 1
-            }
-            if (a.materia < b.materia) {
-            return -1
-            }
-            return 0;
-        })
-    verRegistro(ordenadoAlfabeticamente)
-}
-
-// Function el Menu de opciones de Ordenado
-function ordenar(array){
-    let opcion = parseInt(prompt(`
-    1 - Ordenar de menor a mayor
-    2 - Ordenar de mayor a menor
-    3 - Ordenar por Materia `))
-    switch(opcion){
-        case 1:
-            ordenarMenorMayor(array)
-        break
-        case 2:
-            ordenarMayorMenor(array)
-        break
-        case 3:
-            ordenarAlfabeticamente(array)
-        break
-        default:
-            console.log(`${opcion} no es válida para ordenar`)
-        break    
-    }
-}
-
-// Function para buscar notas según Materia
-function buscarNotasMateria(array){
-    //Ingresar el nombre de la Materia a buscar
-    let materiaBuscada = prompt("Ingrese el nombre de la materia que está buscando")
-    //Realizar la busqueda de filter para que nos devuelva un Array
-    //Se utiliza propiedad de .toLowerCase para evitar diferencias con el string ingresado
-    let busqueda = array.filter((nota)=> nota.materia.toLowerCase() == materiaBuscada.toLowerCase())
-    if(busqueda.length == 0){
-        console.log(`No hay notas registradas para la materia "${materiaBuscada}"`)
-    }else{
-        //Console.log para verificar el estado de la consulta
-        console.log(busqueda)
-        verRegistro(busqueda)
-    }
-}
-
-// Function el Menu de opciones de Calculadoras
-function calculadoras(){
-    let opcion = parseInt(prompt(`
-    1 - Calculadora de Notas Universitarias (Escala 1 al 10, notas ponderadas)
-    2 - Calculador de Notas Colegio/Escuela (Escala de 1 al 7, notas parciales)
-    0 - Volver al Menu Principal
-    `))
-    switch(opcion){
-        case 1:
-            let simulador1
-            do{
-                alert(`CALCULADORA DE PROMEDIOS PARA ALUMNOS. Este Simulador calcula el promedio de notas PONDERADAS del 1 al 10`)
-                
-                let cantidadNotas = parseInt(prompt("Ingresa la cantidad de notas de tu curso:"))
-                
-                while(isNaN(cantidadNotas)){
-                    cantidadNotas = parseInt(prompt(`TIPO DE DATO INCORRECTO, SOLO PUEDES INGRESAR VALORES NUMERICOS
-                    Ingrese la cantidad de notas que deseas calcular para ${nombreAlumno}`))
-                }
-
-                let total = 0
-
-                function sumarPonderado (total, nota, ponderacionNota) {
-                    return total + nota*(ponderacionNota/100)
-                }
-
-                for(let i = 1; i <=cantidadNotas; i++){
-                    let nota = parseInt(prompt(`Ingrese nota n° ${i}`))
-                    while(isNaN(nota)){
-                        nota = parseInt(prompt(`TIPO DE DATO INCORRECTO, SOLO PUEDES INGRESAR VALORES NUMERICOS. 
-                        Ingrese nota n° ${i}`))
-                    }
-                    let ponderacionNota = parseInt(prompt(`Ingrese el % ponderación de Nota n° ${i}`))
-                    while(isNaN(ponderacionNota)){
-                        ponderacionNota = parseInt(prompt(`TIPO DE DATO INCORRECTO, SOLO PUEDES INGRESAR VALORES NUMERICOS.
-                        Ingrese el % ponderación de nota n° ${i}`))
-                    }
-                    if(nota >=0 && nota <=10 && ponderacionNota >=0 && ponderacionNota <=100){
-                        total = sumarPonderado(total, nota, ponderacionNota)
-                        console.log(`El total parcial es ${total}`)
-                    }else{
-                        while(nota < 0 || nota > 10 && ponderacionNota < 0 || ponderacionNota > 100){
-                            nota = parseInt(prompt(`¡ATENCIÓN! ingresa un valor entre 0 y 10 para la nota n°${i}`))
-                        }
-                        total = sumarPonderado(total, nota, ponderacionNota)
-                        console.log(`El total parcial es ${total}`)
-                    }
-                }
-                
-                let promedio = total
-                
-                alert(`El promedio de ${nombreAlumno} es ${promedio.toFixed(1)}`)
-                
-                if(promedio == 10){
-                    alert(`${nombreAlumno} has aprobado con la NOTA MAXIMA!`)
-                }else if(promedio >= 5){
-                    alert(`${nombreAlumno} has APROBADO el curso`) 
-                }else{
-                    alert(`${nombreAlumno} NO has aprobado`)
-                }
-
-                simulador1 = prompt("Responda si desea seguir calculando promedios. ESC para salir")
-            }while(simulador1.toUpperCase() != "ESC")
-        break
-        
-        case 2:
-            let simulador2
-            do{                
-                let cantidadNotas = parseInt(prompt("Ingresa la cantidad de notas de tu curso:"))
-                
-                while(isNaN(cantidadNotas)){
-                    cantidadNotas = parseInt(prompt(`TIPO DE DATO INCORRECTO, SOLO PUEDES INGRESAR VALORES NUMERICOS
-                    Ingrese la cantidad de notas que desea ingresar para ${nombreAlumno}`))
-                }
-
-                let total = 0
-                function sumarParcial (total, nota) {
-                    return total + nota
-                }
-
-                function calcularPromedio (total, cantidadNotas){
-                    return total / cantidadNotas
-                }
-                
-                for(let i = 1; i <=cantidadNotas; i++){
-                    let nota = parseInt(prompt(`Ingrese nota n° ${i}`))
-                    while(isNaN(nota)){
-                        nota = parseInt(prompt(`TIPO DE DATO INCORRECTO, SOLO PUEDES INGRESAR VALORES NUMERICOS. Ingrese nota n° ${i}`))
-                    }
-                    if(nota >=0 && nota <=7){
-                        total = sumarParcial(total, nota)
-                        console.log(`El total parcial es ${total}`)
-                    }else{
-                        while(nota < 0 || nota > 7){
-                            nota = parseInt(prompt(`Atención ingrese un valor entre 0 y 7 para la nota n°${i}`))
-                        }
-                        total = sumarParcial(total, nota)
-                        console.log(`El total parcial es ${total}`)
-                    }
-                }
-
-                let promedio = calcularPromedio(total, cantidadNotas)
-                
-                alert(`El promedio de ${nombreAlumno} es ${promedio.toFixed(1)}`)
-                
-                if(promedio == 7){
-                    alert(`${nombreAlumno} has aprobado con la NOTA MAXIMA!`)
-                }else if(promedio >= 4){
-                    alert(`${nombreAlumno} has APROBADO el curso`) 
-                }else{
-                    alert(`${nombreAlumno} NO has aprobado`)
-                }
-                
-                simulador2 = prompt("Responda si desea seguir calculando promedios. ESC para salir")
-                console.log(simulador2)
-            }while(simulador2.toUpperCase() != "ESC")
-        break
-        default:
-            console.log(`${opcion} no es válida para ordenar`)
-        break    
-    }
-}
-
-
-// Menu de Opciones
-do{
-    let opcionIngresada = parseInt(prompt(`Ingrese la opción deseada
-        1 - Calculadoras de Notas Universitarias o Colegios/Escuelas
-        2 - Registrar Nota Nueva
-        3 - Eliminar Nota
-        4 - Ver Registro de Notas
-        5 - Ordenar Notas
-        6 - Buscar Notas Según Materia
-        0 - Salir del menu`))
+function mostrarCategorias(array) {
+    let contador = array.reduce((contador, item) => {
+        if (!contador[item.categoria]) {
+            contador[item.categoria] = 0
+        }
+        contador[item.categoria]++
+        return contador
+    }, {})
     
-    switch(opcionIngresada){
+    for (let item in contador) {
+        let nuevaCategoria = document.createElement("button")
+        nuevaCategoria.classList.add("list-group-item", "d-flex", "justify-content-between", "align-items-center",)
+        nuevaCategoria.setAttribute(`id`,`filtrar${item}`)
+        nuevaCategoria.innerHTML = `
+                ${item}
+            <span class="badge bg-primary rounded-pill">${contador[item]}</span>`
+        displayCategorias.appendChild(nuevaCategoria)
 
-        case 1:
-            calculadoras()
-        break
-
-        case 2:
-            agregarNota()
-        break
-
-        case 3:
-            eliminarNota(notas)
-        break
-
-        case 4:
-            verRegistro(notas)
-        break
-        
-        case 5:
-            ordenar(notas)
-        break
-
-        case 6:
-            buscarNotasMateria(notas)
-        break
-            
-        case 0:
-            alert("Gracias por probar mi APP. Desarrollada por Diego Miranda - Curso JavaScript CoderHouse 2023")
-            salirMenu = true
-        break
-
-        default:
-            console.log("Ingrese una opción correcta")
-        break
+        let filtrar = document.getElementById(`filtrar${item}`)
+        filtrar.addEventListener("click", ()=>{
+            buscarProductos(item, catalogo)
+        })
     }
-}while(!salirMenu)
+}
+
+//Function para visualizar los productos
+function mostrarCatalogo(array){
+    displayProductos.innerHTML = ""
+    for (let item of array){
+        
+        let nuevoProducto = document.createElement("div")
+        //classList + add agrego clases al elemento que seleccione
+        nuevoProducto.classList.add("col-12", "col-md-6", "col-lg-3", "my-3", "d-flex", "justify-content-center")
+        nuevoProducto.innerHTML = `
+        <div id="${item.id}" class="card" style="width: 18rem;">
+                <img class="card-img-top img-fluid" src="../assets/img/${item.img}" alt="${item.producto}">
+                <div class="card-body">
+                            <h4 class="card-title">${item.producto}</h4>
+                            <p>${item.genero}</p>
+                            <p>${item.categoria}</p>
+                            <p class="fw-bold">$${item.precio}</p>
+                        <button id="agregarBtn${item.id}" class="btn btn-outline-success">Agregar al Carrito <i class="bi bi-cart"></i></button>
+                </div>
+        </div>`
+        displayProductos.appendChild(nuevoProducto)
+
+        let agregarBtn = document.getElementById(`agregarBtn${item.id}`)
+        agregarBtn.addEventListener("click", ()=>{
+            agregarProductoCarrito(item)
+        })
+    }
+}
+
+//Agregar productos al Carrito
+function agregarProductoCarrito(producto) {
+    let carritoCompras
+    if (localStorage.getItem("carrito")) {
+        carritoCompras = JSON.parse(localStorage.getItem("carrito"))
+    } else {
+        carritoCompras = []
+    }
+
+    let productoEnCarrito = carritoCompras.find(i => i.id === producto.id)
+    if (productoEnCarrito) {
+        // Si ya está en el carrito, solo aumentar la cantidad
+        productoEnCarrito.cantidad++
+        productoEnCarrito.valorTotal = productoEnCarrito.cantidad * productoEnCarrito.precio
+    } else {
+        // Si no está en el carrito, agregarlo
+        producto.cantidad = 1
+        producto.valorTotal = producto.cantidad * producto.precio
+        carritoCompras.push(producto)
+    }
+
+    // Guardar el carrito en el local storage
+    localStorage.setItem("carrito", JSON.stringify(carritoCompras))
+    console.log(carritoCompras)
+}
+
+// Eliminar productos del Carrito
+function eliminarProductoCarrito(producto) {
+    let carritoCompras
+    if (localStorage.getItem("carrito")) {
+        carritoCompras = JSON.parse(localStorage.getItem("carrito"))
+    } else {
+        carritoCompras = []
+    }
+
+    let productoEnCarrito = carritoCompras.find(i => i.id === producto.id)
+    if (productoEnCarrito) {
+        // Si ya está en el carrito, reducir la cantidad
+        productoEnCarrito.cantidad--
+        productoEnCarrito.valorTotal = productoEnCarrito.cantidad * productoEnCarrito.precio
+        if (productoEnCarrito.cantidad <= 0) {
+            // Si la cantidad es 0 o negativa, eliminar el producto del carrito
+            let indice = carritoCompras.indexOf(productoEnCarrito)
+            carritoCompras.splice(indice, 1)
+        }
+    }
+
+    // Guardar el carrito en el local storage
+    localStorage.setItem("carrito", JSON.stringify(carritoCompras))
+    console.log(carritoCompras)
+}
+
+//Mostrar productos del Carrito
+function mostrarCarrito(){
+    // Obtener los productos guardados en el local storage
+    let carritoCompras
+    if (localStorage.getItem("carrito")) {
+        carritoCompras = JSON.parse(localStorage.getItem("carrito"))
+    } else {
+        carritoCompras = []
+    }
+
+
+    // Crear contenido HTML para mostrar los productos en el carrito
+    let contenido = ""
+    let montoTotal = 0
+    for (let item of carritoCompras) {
+        contenido += `
+            <tr>
+                <th scope="row">${item.id}</th>
+                <th><img src="../assets/img/${item.img}" class="thumbnail"></th>
+                <td>${item.producto}</td>
+                <td>${item.cantidad}</td>
+                <td>$${item.precio}</td>
+                <td class="fw-bold">$${item.cantidad * item.precio}</td>
+                <td><button class="btn btn-outline-danger" id="eliminarBtn${item.id}">Eliminar Unidad</button></td>
+            </tr>
+            ` 
+        montoTotal += item.cantidad * item.precio
+    }
+
+    // Mostrar el contenido HTML en el modal
+    // Si no hay productos en el carrito
+    if (carritoCompras.length == 0) {
+        document.getElementById("carritoDetalle").innerHTML = "No hay productos en el carrito"
+    } else {
+        document.getElementById("carritoDetalle").innerHTML = `
+        <table class="table table-flush text-center align-middle">
+            <thead>
+                <tr>
+                    <th scope="col">SKU</th>
+                    <th scope="col"></th>
+                    <th scope="col">Producto</th>
+                    <th scope="col">Cantidad</th>
+                    <th scope="col">Precio Unitario</th>
+                    <th scope="col">Total</th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody class="table-group-divider">
+                ${contenido}
+            </tbody>
+        </table>
+        `
+    document.getElementById("montoTotal").innerHTML = `TOTAL: $${montoTotal}`
+    }
+
+    // Agregar evento click a los botones eliminar
+    for (let item of carritoCompras) {
+        let eliminarBtn = document.getElementById(`eliminarBtn${item.id}`)
+        eliminarBtn.addEventListener("click", ()=>{
+            let carritoActualizado = carritoCompras.filter(i => i.id !== item.id)
+            localStorage.setItem("carrito", JSON.stringify(carritoActualizado))
+            mostrarCarrito()
+        })
+    }    
+}
+
+// Buscador de productos
+function buscarProductos(buscado, array){
+    let busquedaArray = array.filter(
+        (item) => item.producto.toLowerCase().includes(buscado.toLowerCase()) || item.categoria.toLowerCase().includes(buscado.toLowerCase()) || item.genero.toLowerCase().includes(buscado.toLowerCase())
+    ) 
+    //condicional sino encuentra nada:
+    if(busquedaArray.length == 0){
+        displayProductosBuscados.innerHTML = `<h3>No tenemos el producto que buscas...</h3>`
+        mostrarCatalogo(busquedaArray)
+    }else{
+        displayProductosBuscados.innerHTML = ""
+        mostrarCatalogo(busquedaArray)
+    }
+}
+
+//Ordenar
+function menorMayor(array){
+    const menorMayor = [].concat(array)
+
+    menorMayor.sort((a,b) => a.precio - b.precio)
+    mostrarCatalogo(menorMayor)
+}
+
+function mayorMenor(array){
+    const mayorMenor = [].concat(array)
+    mayorMenor.sort((a, b)=> b.precio - a.precio)
+    mostrarCatalogo(mayorMenor)
+}
+
+function alfabeticamente(array){
+    const alfabe = [].concat(array)
+    alfabe.sort((a,b) => {
+        if(a.titulo > b.titulo) {
+        return 1
+        }
+        if (a.titulo < b.titulo) {
+        return -1
+        }
+        return 0
+    })
+    mostrarCatalogo(alfabe)
+}
+
+//Function para agregar un nuevo producto
+function agregarProducto(array){
+    //creamos nuevo objeto 
+    const productoNuevo = new Producto(array.length+1, productoInput.value, categoriaInput.value, generoInput.value, parseInt(precioInput.value), "logo-square.png")
+    console.log(productoNuevo)
+    //sumarlo a estanteria
+    array.push(productoNuevo)
+    console.log(array)
+    //guardar en localStorage
+    localStorage.setItem("catalogo", JSON.stringify(array))
+    mostrarCatalogo(array)
+
+    //resetear input 
+    productoInput.value = ""
+    categoriaInput.value = ""
+    generoInput.value = ""
+    precioInput.value = ""
+}
+
+// function eliminarProducto (catalogo) {
+//     // Obtener el catálogo desde el local storage
+//     let catalogo = JSON.parse(localStorage.getItem("catalogo")) || [];
+
+//     // Filtrar el producto a eliminar
+//     catalogo = catalogo.filter(producto => producto.id !== id)
+
+//     // Guardar el catálogo actualizado en el local storage
+//     localStorage.setItem("catalogo", JSON.stringify(catalogo))
+
+//     // Mostrar el catálogo actualizado en la pantalla
+//     mostrarCatalogo(catalogo)
+// }
+
+//EVENTOS:
+let categorias = obtenerCategorias(catalogo)
+
+document.addEventListener("DOMContentLoaded", () => {
+    if (document.URL.includes("productos.html")) {
+        mostrarCatalogo(catalogo)
+        mostrarCategorias(catalogo)
+
+        buscador.addEventListener("input", ()=>{
+            buscarProductos(buscador.value, catalogo)
+        }) 
+
+        ordenSelect.addEventListener("change", ()=>{
+            console.log(ordenSelect.value)
+            if(ordenSelect.value == 1){
+                menorMayor(catalogo)
+            }else if(ordenSelect.value == 2){
+                mayorMenor(catalogo)
+            }else if(ordenSelect.value == 3){
+                alfabeticamente(catalogo)
+            }else{
+                mostrarCatalogo(catalogo)
+            }
+        })
+
+        document.getElementById("botonCarrito").addEventListener("click", function(){
+            mostrarCarrito()
+        })
+    }
+})
+
+
+document.addEventListener("DOMContentLoaded", () => {
+    if (document.URL.includes("admin.html")) {
+        let guardarProductoBtn = document.getElementById("guardarProductoBtn")
+        guardarProductoBtn.addEventListener("click", () => {
+            agregarProducto(catalogo)
+        })
+    }
+})
+
+
