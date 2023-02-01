@@ -76,7 +76,6 @@ function mostrarCatalogo(array){
     for (let item of array){
         
         let nuevoProducto = document.createElement("div")
-        //classList + add agrego clases al elemento que seleccione
         nuevoProducto.classList.add("col-12", "col-md-6", "col-lg-3", "my-3", "d-flex", "justify-content-center")
         nuevoProducto.innerHTML = `
         <div id="${item.id}" class="card" style="width: 18rem;">
@@ -277,20 +276,6 @@ function agregarProducto(array){
     generoInput.value = ""
     precioInput.value = ""
 }
-
-// function eliminarProducto (catalogo) {
-//     // Obtener el catálogo desde el local storage
-//     let catalogo = JSON.parse(localStorage.getItem("catalogo")) || []
-
-//     // Filtrar el producto a eliminar
-//     catalogo = catalogo.filter(producto => producto.id !== id)
-
-//     // Guardar el catálogo actualizado en el local storage
-//     localStorage.setItem("catalogo", JSON.stringify(catalogo))
-
-//     // Mostrar el catálogo actualizado en la pantalla
-//     mostrarCatalogo(catalogo)
-// }
 
 //EVENTOS:
 let categorias = obtenerCategorias(catalogo)
