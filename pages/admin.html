@@ -12,7 +12,7 @@
 </head>
 <body class="bg-light">
     <section>
-        <nav class="navbar navbar-dark bg-dark navbar-expand-lg">
+        <nav class="navbar navbar-dark bg-dark navbar-expand-md">
             <div class="container-fluid">
                 <a class="navbar-brand" href="../index.html"><img class="logo" src="../assets/img/logo/logo-white.png" alt="Logo"></a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -42,13 +42,15 @@
         <div class="container-fluid">
             <div class="card m-5">
                 <div class="card-body">
-                    <h5 class="card-title">Panel de Administración de Tienda</h5>
-                    <h6 class="card-subtitle mb-2 text-muted">Productos</h6>
+                    <h4 class="card-title d-flex justify-content-center">Panel de Administración de Tienda</h4>
+                    <h5 class="card-subtitle mb-2 text-muted d-flex justify-content-center">Productos</h5>
                     <div class="row">
-                        <div class="col-12 d-flex justify-content-center align-items-center">
-                            <button id="agregarProductoBtn" data-bs-toggle="modal" data-bs-target="#agregarProducto" class="btn btn-dark">Agregar Producto</button>
-
+                        <div class="col-12 d-flex justify-content-end align-items-center">
+                            <button id="agregarProductoModal" data-bs-toggle="modal" data-bs-target="#agregarProducto" class="btn btn-dark">Agregar <i class="bi bi-plus-circle"></i></button>
                         </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 d-flex mt-3 justify-content-center align-items-center" id="eliminarPrductoBody">
                     </div>
                 </div>
             </div>
@@ -81,7 +83,12 @@
                         </div>
                         <div class="mb-3">
                             <label for="autor" class="form-label">Genero</label>
-                            <input type="text" class="form-control" id="generoInput" aria-describedby="genero">
+                            <select id="generoInput" class="form-select" aria-label="genero">
+                                <option selected>Selecciona una...</option>
+                                <option value="Hombres">Hombres</option>
+                                <option value="Mujeres">Mujeres</option>
+                                <option value="Otros">Otros</option>
+                            </select>
                         </div>
                         <div class="mb-3">
                             <label for="precio" class="form-label">Precio</label>
@@ -96,6 +103,24 @@
             </div>
         </div>
     </div>
+
+    <!-- Modal Para el Eliminar Productos
+    <div class="modal fade" id="eliminarProducto" tabindex="-1" aria-labelledby="eliminarProducto" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Eliminar Producto</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" id="eliminarPrductoBody">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div> -->
+    
 
     <!--Modal Para el Carro de Compras-->
     <div class="modal fade" id="Carrito" tabindex="-1" aria-labelledby="Carrito de Compras" aria-hidden="true">

@@ -4,6 +4,10 @@ let buscador = document.getElementById("buscador")
 let displayProductosBuscados = document.getElementById("displayProductosBuscados")
 let displayCategorias = document.getElementById("displayCategorias")
 let ordenSelect = document.getElementById("ordenSelect")
+let botonCarrito = document.getElementById("botonCarrito")
+let guardarProductoBtn = document.getElementById("guardarProductoBtn")
+let eliminarProductoModal = document.getElementById("eliminarProductoModal")
+
 
 
 //FUNCTIONS:
@@ -149,6 +153,7 @@ function eliminarProductoCarrito(producto) {
     console.log(carritoCompras)
 }
 
+
 //Mostrar productos del Carrito
 function mostrarCarrito(){
     // Obtener los productos guardados en el local storage
@@ -162,7 +167,6 @@ function mostrarCarrito(){
 
     // Crear contenido HTML para mostrar los productos en el carrito
     let contenido = ""
-    let montoTotal = 0
     for (let item of carritoCompras) {
         contenido += `
             <tr>
@@ -172,10 +176,9 @@ function mostrarCarrito(){
                 <td>${item.cantidad}</td>
                 <td>$${item.precio}</td>
                 <td class="fw-bold">$${item.cantidad * item.precio}</td>
-                <td><button class="btn btn-outline-danger" id="eliminarBtn${item.id}">Eliminar Unidad</button></td>
+                <td><button class="btn btn-outline-danger" id="eliminarBtn${item.id}">Eliminar</button></td>
             </tr>
             ` 
-        montoTotal += item.cantidad * item.precio
     }
 
     // Mostrar el contenido HTML en el modal
@@ -201,7 +204,6 @@ function mostrarCarrito(){
             </tbody>
         </table>
         `
-    document.getElementById("montoTotal").innerHTML = `TOTAL: $${montoTotal}`
     }
 
     // Agregar evento click a los botones eliminar
@@ -213,6 +215,15 @@ function mostrarCarrito(){
             mostrarCarrito()
         })
     }    
+    calcularTotal(carritoCompras)
+}
+
+function calcularTotal(array) {
+    let montoTotal = 0
+    for (let item of array) {
+        montoTotal += item.cantidad * item.precio
+    }
+    document.getElementById("montoTotal").innerHTML = `TOTAL: $${montoTotal}`
 }
 
 // Buscador de productos
@@ -268,13 +279,67 @@ function agregarProducto(array){
     console.log(array)
     //guardar en localStorage
     localStorage.setItem("catalogo", JSON.stringify(array))
-    mostrarCatalogo(array)
+    administrarProductos(array)
 
     //resetear input 
     productoInput.value = ""
     categoriaInput.value = ""
     generoInput.value = ""
     precioInput.value = ""
+}
+
+//Function para Eliminar un producto
+function administrarProductos(array){
+    // Crear contenido HTML para mostrar los productos en el carrito
+    let contenido = ""
+    for (let item of array) {
+        contenido += `
+            <tr>
+                <th scope="row">${item.id}</th>
+                <th><img src="../assets/img/${item.img}" class="thumbnail"></th>
+                <td>${item.producto}</td>
+                <td>$${item.precio}</td>
+                <td><button class="btn btn-outline-danger" id="eliminar${item.id}"><i class="bi bi-trash3"></i></button></td>
+            </tr>
+            ` 
+    }
+
+    // Mostrar el contenido HTML en el modal
+    // Si no hay productos en el carrito
+    if (array.length == 0) {
+        document.getElementById("eliminarPrductoBody").innerHTML = "<h5>No hay productos en el stock</h5>"
+    } else {
+        document.getElementById("eliminarPrductoBody").innerHTML = `
+        <table class="table table-flush text-center align-middle">
+            <thead>
+                <tr>
+                    <th scope="col">SKU</th>
+                    <th scope="col"></th>
+                    <th scope="col">Producto</th>
+                    <th scope="col">Precio Unitario</th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody class="table-group-divider">
+                ${contenido}
+            </tbody>
+        </table>
+        `
+    }
+    eliminarProductoBtn(array)
+}
+
+function eliminarProductoBtn(array) {
+    for (let item of array) {
+        let eliminarBtn = document.getElementById(`eliminar${item.id}`)
+        eliminarBtn.addEventListener("click", ()=>{
+            catalogo = array.filter(i => i.id !== item.id)
+            localStorage.setItem("catalogo", JSON.stringify(catalogo))
+            console.log(`Producto eliminado: ${item.id}`)
+            // Llamada a la función para mostrar el nuevo listado de productos actualizado
+            administrarProductos(catalogo)
+        })
+    }    
 }
 
 //EVENTOS:
@@ -301,21 +366,20 @@ document.addEventListener("DOMContentLoaded", () => {
                 mostrarCatalogo(catalogo)
             }
         })
-
-        document.getElementById("botonCarrito").addEventListener("click", function(){
-            mostrarCarrito()
-        })
     }
+})
+
+botonCarrito.addEventListener("click", function(){
+    mostrarCarrito()
 })
 
 
 document.addEventListener("DOMContentLoaded", () => {
     if (document.URL.includes("admin.html")) {
-        let guardarProductoBtn = document.getElementById("guardarProductoBtn")
         guardarProductoBtn.addEventListener("click", () => {
             agregarProducto(catalogo)
         })
+        administrarProductos(catalogo)
     }
 })
-
 
