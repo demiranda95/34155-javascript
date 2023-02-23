@@ -148,6 +148,9 @@ function mostrarProductosAleatorios() {
 	}
 }
 
+// Llamada a la función después de que la página se haya cargado
+window.addEventListener("load", mostrarProductosAleatorios);
+
 //PRODUCTOS
 
 //Mostrar categorias sidebar
