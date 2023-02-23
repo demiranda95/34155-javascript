@@ -126,11 +126,6 @@ function checkCatalogoIndex () {
 	} else {
 		console.log("Estableciendo Stock de Vestuario")
 		cargarCatalogoIndex()
-		window.onload = function () {
-			if (!window.location.hash) {
-				window.location.reload()
-			}
-		}
 	}
 }
 
@@ -151,11 +146,6 @@ function checkCatalogo () {
 	} else {
 		console.log("Estableciendo Stock de Vestuario")
 		cargarCatalogo()
-		window.onload = function () {
-			if (!window.location.hash) {
-				window.location.reload()
-			}
-		}
 	}
 }
 
