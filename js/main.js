@@ -638,7 +638,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
 document.addEventListener("DOMContentLoaded", () => {
 	if (document.URL.includes("productos.html")) {
-		checkCatalogo()
 		mostrarCatalogo(catalogo);
 		mostrarCategorias(catalogo);
 
@@ -673,7 +672,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
 document.addEventListener("DOMContentLoaded", () => {
 	if (document.URL.includes("login.html")) {
-		checkCatalogo()
 		// Vincula el evento "submit" del formulario con la función validarUsuario
 		document.getElementById("login-form").addEventListener("submit", validarUsuario);
 	}
@@ -681,7 +679,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
 document.addEventListener("DOMContentLoaded", () => {
 	if (document.URL.includes("admin.html")) {
-		checkCatalogo()
 		guardarProductoBtn.addEventListener("click", () => {
 			agregarProducto(catalogo);
 		});
@@ -694,7 +691,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
 document.addEventListener("DOMContentLoaded", () => {
 	if (document.URL.includes("checkout.html")) {
-		checkCatalogo()
 		imprimirProductosCheckout();
 	}
 });
