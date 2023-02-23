@@ -60,12 +60,6 @@ const cargarCatalogo = async () => {
 					catalogo.push(productoNuevo)
 				}
 				localStorage.setItem("catalogo", JSON.stringify(catalogo));
-				window.onload = function () {
-					if (!window.location.hash) {
-						window.location = window.location + "#";
-						window.location.reload()
-					}
-				}
 			} catch (error) {
 				Swal.fire({
 					icon: "error",
@@ -101,12 +95,6 @@ const cargarCatalogoIndex = async () => {
 					catalogo.push(productoNuevo)
 				}
 				localStorage.setItem("catalogo", JSON.stringify(catalogo));
-				window.onload = function () {
-					if (!window.location.hash) {
-						window.location = window.location + "#";
-						window.location.reload()
-					}
-				}
 			} catch (error) {
 				Swal.fire({
 					icon: "error",
@@ -138,6 +126,12 @@ function checkCatalogoIndex () {
 	} else {
 		console.log("Estableciendo Stock de Vestuario")
 		cargarCatalogoIndex()
+		window.onload = function () {
+			if (!window.location.hash) {
+				window.location = window.location + "#";
+				window.location.reload()
+			}
+		}
 	}
 }
 
@@ -158,6 +152,12 @@ function checkCatalogo () {
 	} else {
 		console.log("Estableciendo Stock de Vestuario")
 		cargarCatalogo()
+		window.onload = function () {
+			if (!window.location.hash) {
+				window.location = window.location + "#";
+				window.location.reload()
+			}
+		}
 	}
 }
 
