@@ -682,7 +682,6 @@ let categorias = obtenerCategorias(catalogo);
 
 document.addEventListener("DOMContentLoaded", () => {
 	if (document.URL.includes("index.html")) {
-		checkCatalogoIndex()
 		mostrarProductosAleatorios();
 		botonCarrito.addEventListener("click", function () {
 			mostrarCarrito();
