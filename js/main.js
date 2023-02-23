@@ -80,6 +80,48 @@ const cargarCatalogo = async () => {
 	});
 };
 
+const cargarCatalogoIndex = async () => {
+	const loadingCatalogo = Swal.fire({
+		title: "Cargando catálogo...",
+		allowOutsideClick: false,
+		didOpen: async () => {
+			Swal.showLoading()
+			try {
+				const response = await fetch("api/productos.json")
+				const data = await response.json()
+				for (const producto of data) {
+					const productoNuevo = new Producto(
+						producto.id,
+						producto.nombre,
+						producto.categoria,
+						producto.genero,
+						producto.precio,
+						producto.img
+					);
+					catalogo.push(productoNuevo)
+				}
+				localStorage.setItem("catalogo", JSON.stringify(catalogo));
+				window.onload = function () {
+					if (!window.location.hash) {
+						window.location = window.location + "#";
+						window.location.reload()
+					}
+				}
+			} catch (error) {
+				Swal.fire({
+					icon: "error",
+					title: "Error cargando catálogo",
+					text: error.message,
+				})
+			}
+			Swal.hideLoading()
+			loadingCatalogo.close()
+		},
+		showConfirmButton: false,
+	});
+};
+
+
 if (localStorage.getItem("catalogo")) {
 	for (const producto of JSON.parse(localStorage.getItem("catalogo"))) {
 		const productoNuevo = new Producto(
@@ -96,6 +138,8 @@ if (localStorage.getItem("catalogo")) {
 } else {
 	console.log("Estableciendo Stock de Vestuario")
 	cargarCatalogo()
+	cargarCatalogoIndex()
+
 }
 
 //INDEX
@@ -136,7 +180,7 @@ function mostrarProductosAleatorios() {
 
 		nuevoProducto.innerHTML = `
 		<div id="${producto.id}" class="card" style="width: 18rem;">
-		<img class="card-img-top img-fluid" src="../${producto.img}" alt="${producto.nombre}">
+		<img class="card-img-top img-fluid" src="${producto.img}" alt="${producto.nombre}">
 		<div class="card-body d-flex flex-column justify-content-center align-items-center">
 			<h6 class="card-title">${producto.nombre}</h6>
 			<p>${producto.categoria} | ${producto.genero}</p>
