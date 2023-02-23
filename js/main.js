@@ -74,80 +74,27 @@ const cargarCatalogo = async () => {
 	});
 };
 
-const cargarCatalogoIndex = async () => {
-	const loadingCatalogo = Swal.fire({
-		title: "Cargando catálogo...",
-		allowOutsideClick: false,
-		didOpen: async () => {
-			Swal.showLoading()
-			try {
-				const response = await fetch("/api/productos.json")
-				const data = await response.json()
-				for (const producto of data) {
-					const productoNuevo = new Producto(
-						producto.id,
-						producto.nombre,
-						producto.categoria,
-						producto.genero,
-						producto.precio,
-						producto.img
-					);
-					catalogo.push(productoNuevo)
-				}
-				localStorage.setItem("catalogo", JSON.stringify(catalogo));
-			} catch (error) {
-				Swal.fire({
-					icon: "error",
-					title: "Error cargando catálogo",
-					text: error.message,
-				})
-			}
-			Swal.hideLoading()
-			loadingCatalogo.close()
-		},
-		showConfirmButton: false,
-	});
-};
 
-function checkCatalogoIndex () {
-	if (localStorage.getItem("catalogo")) {
-		for (const producto of JSON.parse(localStorage.getItem("catalogo"))) {
-			const productoNuevo = new Producto(
-				producto.id,
-				producto.nombre,
-				producto.categoria,
-				producto.genero,
-				producto.precio,
-				producto.img
-			)
-			catalogo.push(productoNuevo)
-		}
-		console.log(catalogo)
-	} else {
-		console.log("Estableciendo Stock de Vestuario")
-		cargarCatalogoIndex()
+
+
+if (localStorage.getItem("catalogo")) {
+	for (const producto of JSON.parse(localStorage.getItem("catalogo"))) {
+		const productoNuevo = new Producto(
+			producto.id,
+			producto.nombre,
+			producto.categoria,
+			producto.genero,
+			producto.precio,
+			producto.img
+		)
+		catalogo.push(productoNuevo)
 	}
+	console.log(catalogo)
+} else {
+	console.log("Estableciendo Stock de Vestuario")
+	cargarCatalogo()
 }
 
-function checkCatalogo () {
-	if (localStorage.getItem("catalogo")) {
-		for (const producto of JSON.parse(localStorage.getItem("catalogo"))) {
-			const productoNuevo = new Producto(
-				producto.id,
-				producto.nombre,
-				producto.categoria,
-				producto.genero,
-				producto.precio,
-				producto.img
-			)
-			catalogo.push(productoNuevo)
-		}
-		console.log(catalogo)
-	} else {
-		console.log("Estableciendo Stock de Vestuario")
-		cargarCatalogo()
-	}
-}
 
 
 //INDEX
@@ -480,10 +427,10 @@ function alfabeticamente(array) {
 	mostrarCatalogo(alfabe);
 }
 
-function obtenerUsuarios() {
-	return fetch("../api/usuarios.json")
-		.then((response) => response.json())
-		.then((data) => data.usuarios);
+async function obtenerUsuarios() {
+	const response = await fetch("../api/usuarios.json");
+	const data = await response.json();
+	return data.usuarios;
 }
 
 function validarUsuario(event) {
