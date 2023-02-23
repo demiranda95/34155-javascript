@@ -1,0 +1,242 @@
+[
+	{
+		"id": 1,
+		"nombre": "Polera Sweet",
+		"categoria": "Poleras",
+		"genero": "Mujer",
+		"precio": 900,
+		"img": "api/img/1.png"
+	},
+	{
+		"id": 2,
+		"nombre": "Polera Melia",
+		"categoria": "Poleras",
+		"genero": "Mujer",
+		"precio": 1000,
+		"img": "api/img/2.png"
+	},
+	{
+		"id": 3,
+		"nombre": "Gorro Polar",
+		"categoria": "Gorros",
+		"genero": "Unisex",
+		"precio": 20000,
+		"img": "api/img/3.png"
+	},
+	{
+		"id": 4,
+		"nombre": "Pantalón Ciclista",
+		"categoria": "Pantalones",
+		"genero": "Hombre",
+		"precio": 35000,
+		"img": "api/img/4.png"
+	},
+	{
+		"id": 5,
+		"nombre": "Zapatilla Running",
+		"categoria": "Zapatillas",
+		"genero": "Mujer",
+		"precio": 45000,
+		"img": "api/img/5.png"
+	},
+	{
+		"id": 6,
+		"nombre": "Accesorio Brazalete",
+		"categoria": "Accesorios",
+		"genero": "Unisex",
+		"precio": 25000,
+		"img": "api/img/6.png"
+	},
+	{
+		"id": 7,
+		"nombre": "Polera Urban",
+		"categoria": "Poleras",
+		"genero": "Hombre",
+		"precio": 15000,
+		"img": "api/img/7.png"
+	},
+	{
+		"id": 8,
+		"nombre": "Pantalón Cargo",
+		"categoria": "Pantalones",
+		"genero": "Unisex",
+		"precio": 40000,
+		"img": "api/img/8.png"
+	},
+	{
+		"id": 9,
+		"nombre": "Zapatilla Trail",
+		"categoria": "Zapatillas",
+		"genero": "Hombre",
+		"precio": 50000,
+		"img": "api/img/9.png"
+	},
+	{
+		"id": 10,
+		"nombre": "Gorro Lana",
+		"categoria": "Gorros",
+		"genero": "Mujer",
+		"precio": 30000,
+		"img": "api/img/10.png"
+	},
+	{
+		"id": 11,
+		"nombre": "Polera Classic",
+		"categoria": "Poleras",
+		"genero": "Hombre",
+		"precio": 25000,
+		"img": "api/img/11.png"
+	},
+	{
+		"id": 12,
+		"nombre": "Pantalón Jogger",
+		"categoria": "Pantalones",
+		"genero": "Mujer",
+		"precio": 28000,
+		"img": "api/img/12.png"
+	},
+	{
+		"id": 13,
+		"nombre": "Zapatilla Skate",
+		"categoria": "Zapatillas",
+		"genero": "Unisex",
+		"precio": 55000,
+		"img": "api/img/13.png"
+	},
+	{
+		"id": 14,
+		"nombre": "Accesorio Bufanda",
+		"categoria": "Accesorios",
+		"genero": "Mujer",
+		"precio": 22000,
+		"img": "api/img/14.png"
+	},
+	{
+		"id": 15,
+		"nombre": "Polera Sun",
+		"categoria": "Poleras",
+		"genero": "Mujer",
+		"precio": 18000,
+		"img": "api/img/15.png"
+	},
+	{
+		"id": 16,
+		"nombre": "Pantalón Cargo",
+		"categoria": "Pantalones",
+		"genero": "Hombre",
+		"precio": 42000,
+		"img": "api/img/16.png"
+	},
+	{
+		"id": 17,
+		"nombre": "Zapatilla Basketball",
+		"categoria": "Zapatillas",
+		"genero": "Hombre",
+		"precio": 60000,
+		"img": "api/img/17.png"
+	},
+	{
+		"id": 18,
+		"nombre": "Gorro Pescador",
+		"categoria": "Gorros",
+		"genero": "Unisex",
+		"precio": 20000,
+		"img": "api/img/18.png"
+	},
+	{
+		"id": 19,
+		"nombre": "Polera Graphic",
+		"categoria": "Poleras",
+		"genero": "Hombre",
+		"precio": 30000,
+		"img": "api/img/19.png"
+	},
+	{
+		"id": 20,
+		"nombre": "Pantalón Corte Recto",
+		"categoria": "Pantalones",
+		"genero": "Mujer",
+		"precio": 32000,
+		"img": "api/img/20.png"
+	},
+	{
+		"id": 21,
+		"nombre": "Polera Active",
+		"categoria": "Poleras",
+		"genero": "Hombre",
+		"precio": 28000,
+		"img": "api/img/21.png"
+	},
+	{
+		"id": 22,
+		"nombre": "Pantalón Jogger",
+		"categoria": "Pantalones",
+		"genero": "Unisex",
+		"precio": 45000,
+		"img": "api/img/22.png"
+	},
+	{
+		"id": 23,
+		"nombre": "Zapatilla Casual",
+		"categoria": "Zapatillas",
+		"genero": "Mujer",
+		"precio": 38000,
+		"img": "api/img/23.png"
+	},
+	{
+		"id": 24,
+		"nombre": "Accesorio Bufanda",
+		"categoria": "Accesorios",
+		"genero": "Unisex",
+		"precio": 22000,
+		"img": "api/img/24.png"
+	},
+	{
+		"id": 25,
+		"nombre": "Polera Graphic",
+		"categoria": "Poleras",
+		"genero": "Hombre",
+		"precio": 21000,
+		"img": "api/img/25.png"
+	},
+	{
+		"id": 26,
+		"nombre": "Pantalón Chino",
+		"categoria": "Pantalones",
+		"genero": "Unisex",
+		"precio": 38000,
+		"img": "api/img/26.png"
+	},
+	{
+		"id": 27,
+		"nombre": "Zapatilla Skate",
+		"categoria": "Zapatillas",
+		"genero": "Hombre",
+		"precio": 52000,
+		"img": "api/img/27.png"
+	},
+	{
+		"id": 28,
+		"nombre": "Gorro Lana Polar",
+		"categoria": "Gorros",
+		"genero": "Mujer",
+		"precio": 32000,
+		"img": "api/img/28.png"
+	},
+	{
+		"id": 29,
+		"nombre": "Polera Stripe",
+		"categoria": "Poleras",
+		"genero": "Mujer",
+		"precio": 25000,
+		"img": "api/img/29.png"
+	},
+	{
+		"id": 30,
+		"nombre": "Pantalón Corto",
+		"categoria": "Pantalones",
+		"genero": "Unisex",
+		"precio": 18000,
+		"img": "api/img/30.png"
+	}
+]
