@@ -121,26 +121,46 @@ const cargarCatalogoIndex = async () => {
 	});
 };
 
-
-if (localStorage.getItem("catalogo")) {
-	for (const producto of JSON.parse(localStorage.getItem("catalogo"))) {
-		const productoNuevo = new Producto(
-			producto.id,
-			producto.nombre,
-			producto.categoria,
-			producto.genero,
-			producto.precio,
-			producto.img
-		)
-		catalogo.push(productoNuevo)
+function checkCatalogoIndex () {
+	if (localStorage.getItem("catalogo")) {
+		for (const producto of JSON.parse(localStorage.getItem("catalogo"))) {
+			const productoNuevo = new Producto(
+				producto.id,
+				producto.nombre,
+				producto.categoria,
+				producto.genero,
+				producto.precio,
+				producto.img
+			)
+			catalogo.push(productoNuevo)
+		}
+		console.log(catalogo)
+	} else {
+		console.log("Estableciendo Stock de Vestuario")
+		cargarCatalogoIndex()
 	}
-	console.log(catalogo)
-} else {
-	console.log("Estableciendo Stock de Vestuario")
-	cargarCatalogo()
-	cargarCatalogoIndex()
-
 }
+
+function checkCatalogo () {
+	if (localStorage.getItem("catalogo")) {
+		for (const producto of JSON.parse(localStorage.getItem("catalogo"))) {
+			const productoNuevo = new Producto(
+				producto.id,
+				producto.nombre,
+				producto.categoria,
+				producto.genero,
+				producto.precio,
+				producto.img
+			)
+			catalogo.push(productoNuevo)
+		}
+		console.log(catalogo)
+	} else {
+		console.log("Estableciendo Stock de Vestuario")
+		cargarCatalogo()
+	}
+}
+
 
 //INDEX
 
@@ -674,6 +694,7 @@ let categorias = obtenerCategorias(catalogo);
 
 document.addEventListener("DOMContentLoaded", () => {
 	if (document.URL.includes("index.html")) {
+		checkCatalogoIndex()
 		mostrarProductosAleatorios();
 		botonCarrito.addEventListener("click", function () {
 			mostrarCarrito();
@@ -683,6 +704,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 document.addEventListener("DOMContentLoaded", () => {
 	if (document.URL.includes("productos.html")) {
+		checkCatalogo()
 		mostrarCatalogo(catalogo);
 		mostrarCategorias(catalogo);
 
@@ -717,6 +739,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 document.addEventListener("DOMContentLoaded", () => {
 	if (document.URL.includes("login.html")) {
+		checkCatalogo()
 		// Vincula el evento "submit" del formulario con la función validarUsuario
 		document.getElementById("login-form").addEventListener("submit", validarUsuario);
 	}
@@ -724,6 +747,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 document.addEventListener("DOMContentLoaded", () => {
 	if (document.URL.includes("admin.html")) {
+		checkCatalogo()
 		guardarProductoBtn.addEventListener("click", () => {
 			agregarProducto(catalogo);
 		});
@@ -736,6 +760,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 document.addEventListener("DOMContentLoaded", () => {
 	if (document.URL.includes("checkout.html")) {
+		checkCatalogo()
 		imprimirProductosCheckout();
 	}
 });
