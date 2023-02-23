@@ -128,7 +128,6 @@ function checkCatalogoIndex () {
 		cargarCatalogoIndex()
 		window.onload = function () {
 			if (!window.location.hash) {
-				window.location = window.location + "#";
 				window.location.reload()
 			}
 		}
@@ -154,7 +153,6 @@ function checkCatalogo () {
 		cargarCatalogo()
 		window.onload = function () {
 			if (!window.location.hash) {
-				window.location = window.location + "#";
 				window.location.reload()
 			}
 		}
