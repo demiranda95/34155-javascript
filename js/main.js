@@ -87,7 +87,7 @@ const cargarCatalogoIndex = async () => {
 		didOpen: async () => {
 			Swal.showLoading()
 			try {
-				const response = await fetch("api/productos.json")
+				const response = await fetch("/api/productos.json")
 				const data = await response.json()
 				for (const producto of data) {
 					const productoNuevo = new Producto(
