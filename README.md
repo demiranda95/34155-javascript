@@ -1,4 +1,4 @@
-![](https://33333.cdn.cke-cs.com/kSW7V9NHUXugvhoQeFaf/images/23d75c53bb47c5d38c5fd91e54493af18132afac8e0a77f2.png)     ![](https://33333.cdn.cke-cs.com/kSW7V9NHUXugvhoQeFaf/images/f9390c72c1db215e2bf6f609e80bfb000e9953b86e971c2c.png)
+![](https://33333.cdn.cke-cs.com/kSW7V9NHUXugvhoQeFaf/images/f9390c72c1db215e2bf6f609e80bfb000e9953b86e971c2c.png)
 
 ## Melia Store - Un Concepto
 
@@ -80,4 +80,8 @@ Los derechos de autor del sitio web son de mi persona. Se excluye la licencia de
 
 # 34155-javascript
 Comisión 34155 - JavaScript - CoderHouse
+
+![](https://33333.cdn.cke-cs.com/kSW7V9NHUXugvhoQeFaf/images/23d75c53bb47c5d38c5fd91e54493af18132afac8e0a77f2.png)     
+Diego Miranda Relmann
+https://diegomiranda.cl
 
