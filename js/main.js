@@ -76,64 +76,78 @@ const cargarCatalogo = async () => {
 
 
 
-
-if (localStorage.getItem("catalogo")) {
-	for (const producto of JSON.parse(localStorage.getItem("catalogo"))) {
-		const productoNuevo = new Producto(
-			producto.id,
-			producto.nombre,
-			producto.categoria,
-			producto.genero,
-			producto.precio,
-			producto.img
-		)
-		catalogo.push(productoNuevo)
+function inicializarCatalogo() {
+	if (localStorage.getItem("catalogo")) {
+		for (const producto of JSON.parse(localStorage.getItem("catalogo"))) {
+			const productoNuevo = new Producto(
+				producto.id,
+				producto.nombre,
+				producto.categoria,
+				producto.genero,
+				producto.precio,
+				producto.img
+			)
+			catalogo.push(productoNuevo)
+		}
+		console.log(catalogo)
+	} else {
+		console.log("Estableciendo Stock de Vestuario")
+		cargarCatalogo()
 	}
-	console.log(catalogo)
-} else {
-	console.log("Estableciendo Stock de Vestuario")
-	cargarCatalogo()
 }
+
 
 
 
 //INDEX
 
 // Function para obtener 4 productos aleatorios del catálogo
-function obtenerProductosAleatorios() {
-	const catalogoCopia = catalogo.slice()
+async function obtenerProductosAleatorios() {
 	const productosAleatorios = []
 
+	const response = await fetch("api/productos.json")
+	const data = await response.json()
+	
 	for (let i = 0; i < 3; i++) {
-		const indiceAleatorio = Math.floor(Math.random() * catalogoCopia.length)
-		const productoAleatorio = catalogoCopia[indiceAleatorio]
-		productosAleatorios.push(productoAleatorio)
-
-		catalogoCopia.splice(indiceAleatorio, 1)
+	const indiceAleatorio = Math.floor(Math.random() * data.length)
+	const productoAleatorio = data[indiceAleatorio]
+	
+	const productoNuevo = new Producto(
+		productoAleatorio.id,
+		productoAleatorio.nombre,
+		productoAleatorio.categoria,
+		productoAleatorio.genero,
+		productoAleatorio.precio,
+		productoAleatorio.img
+	);
+	productosAleatorios.push(productoNuevo)
+	
+	data.splice(indiceAleatorio, 1)
 	}
-
+	
 	return productosAleatorios
 }
 
-// Function para mostrar los productos aleatorios en el HTML
-function mostrarProductosAleatorios() {
-	const productosAleatorios = obtenerProductosAleatorios();
-	const divProductosAleatorios = document.getElementById("productosAleatorios")
+// Function para mostrar productos aleatorios en el HTML
+async function mostrarProductosAleatorios() {
+	const contenedorProductos = document.getElementById("productosAleatorios");
 
-	divProductosAleatorios.innerHTML = ""
+	const productosAleatorios = await obtenerProductosAleatorios();
+
+	let htmlProductosAleatorios = "";
 
 	for (const producto of productosAleatorios) {
-		const nuevoProducto = document.createElement("div")
-		nuevoProducto.classList.add(
-			"col-12",
-			"col-md-6",
-			"col-lg-3",
-			"my-3",
-			"d-flex",
-			"justify-content-center"
-		)
+	const nuevoProducto = document.createElement("div");
+	nuevoProducto.classList.add(
+		"col-12",
+		"col-md-6",
+		"col-lg-3",
+		"my-3",
+		"d-flex",
+		"justify-content-center"
+	);
 
-		nuevoProducto.innerHTML = `
+	nuevoProducto.innerHTML = `
 		<div id="${producto.id}" class="card" style="width: 18rem;">
 		<img class="card-img-top img-fluid" src="${producto.img}" alt="${producto.nombre}">
 		<div class="card-body d-flex flex-column justify-content-center align-items-center">
@@ -142,14 +156,15 @@ function mostrarProductosAleatorios() {
 			<p class="fw-bold h4">${formatter.format(producto.precio)}</p>
 			<a href="pages/productos.html" class="btn btn-secondary bg-gris-oscuro text-resalto border-0">Ver Mas <i class="bi bi-cart"></i></a>
 		</div>
-		</div>`
-
-		divProductosAleatorios.appendChild(nuevoProducto)
+		</div>
+	`;
+	htmlProductosAleatorios += nuevoProducto.outerHTML;
 	}
+
+	contenedorProductos.innerHTML = htmlProductosAleatorios;
 }
 
-// Llamada a la función después de que la página se haya cargado
-window.addEventListener("load", mostrarProductosAleatorios);
+
 
 //PRODUCTOS
 
@@ -641,6 +656,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 document.addEventListener("DOMContentLoaded", () => {
 	if (document.URL.includes("productos.html")) {
+		inicializarCatalogo()
 		mostrarCatalogo(catalogo);
 		mostrarCategorias(catalogo);
 
@@ -664,10 +680,12 @@ document.addEventListener("DOMContentLoaded", () => {
 		const borrarFiltroBtn = document.getElementById("borrarFiltroBtn");
 
 		borrarFiltroBtn.addEventListener("click", () => {
+			inicializarCatalogo()
 			mostrarCatalogo(catalogo);
 		});
 
 		botonCarrito.addEventListener("click", function () {
+			inicializarCatalogo()
 			mostrarCarrito();
 		});
 	}
@@ -675,6 +693,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 document.addEventListener("DOMContentLoaded", () => {
 	if (document.URL.includes("login.html")) {
+		inicializarCatalogo()
 		// Vincula el evento "submit" del formulario con la función validarUsuario
 		document.getElementById("login-form").addEventListener("submit", validarUsuario);
 	}
@@ -683,10 +702,12 @@ document.addEventListener("DOMContentLoaded", () => {
 document.addEventListener("DOMContentLoaded", () => {
 	if (document.URL.includes("admin.html")) {
 		guardarProductoBtn.addEventListener("click", () => {
+			inicializarCatalogo()
 			agregarProducto(catalogo);
 		});
 		administrarProductos(catalogo);
 		botonCarrito.addEventListener("click", function () {
+			inicializarCatalogo()
 			mostrarCarrito();
 		});
 	}
@@ -694,6 +715,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 document.addEventListener("DOMContentLoaded", () => {
 	if (document.URL.includes("checkout.html")) {
+		inicializarCatalogo()
 		imprimirProductosCheckout();
 	}
 });
