@@ -4,7 +4,7 @@
 		"nombre": "Polera Sweet",
 		"categoria": "Poleras",
 		"genero": "Mujer",
-		"precio": 900,
+		"precio": 15000,
 		"img": "api/img/1.png"
 	},
 	{
@@ -12,7 +12,7 @@
 		"nombre": "Polera Melia",
 		"categoria": "Poleras",
 		"genero": "Mujer",
-		"precio": 1000,
+		"precio": 13000,
 		"img": "api/img/2.png"
 	},
 	{
